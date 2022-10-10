@@ -3,10 +3,11 @@ const cors = require('cors');
 const morgan =  require('morgan');
 const helmet = require('helmet');
 const path = require('path');
-
+const dbConnect = require('./db')
 
 
 const app = express();
+dbConnect();
 
 app.use(express.json());
 
