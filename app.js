@@ -11,7 +11,11 @@ dbConnect();
 
 const port = process.env.PORT || 3000;
 
+app.use(cors());
+app.use(morgan('dev'));
 app.use(express.json());
 
+app.use(require('./src/routes/User.routes'));
 
-app.listen(port, ()=>console.log(`Rick, estamos en curso por http://localhost:${port}`))
+
+app.listen(port, ()=>console.log(`Rick, estamos en curso por http://localhost:${port}`));
