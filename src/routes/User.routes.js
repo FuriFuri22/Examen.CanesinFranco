@@ -2,8 +2,8 @@ const router = require('express').Router();
 
 const {postUser}=require('../controllers/User.controllers');
 
-const v_JWT = require('../middlewares/validator.jwt');
+//const v_JWT = require('../middlewares/validator.jwt');
 
-router.post('/User', [v_JWT], postUser)
+router.post('/User', postUser)
 
 module.exports = router

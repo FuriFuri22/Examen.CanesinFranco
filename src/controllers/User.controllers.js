@@ -16,7 +16,7 @@ ctrlUser.postUser = async(req, res)=>{
 
     const user = await newUser.save();
 
-    return res,json({
+    return res.json({
         msg: 'Bienvenido seas ',
         user
     })
