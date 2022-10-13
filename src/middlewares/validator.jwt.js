@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const v_JWT = async(req, res, next)=>{
     let token = req.headers.authorization;
-
+    console.log(token)
     if(!token){
         return res.status(401).json({
             msg: 'Token invalido'
@@ -21,7 +21,7 @@ const v_JWT = async(req, res, next)=>{
                 error: '2 El usuario no esta'
             })
         }
-        if (!userFind.isActive) {
+        if (!usuario.isActive) {
             return res.status(401).json({
                 msg: '3 Usuario isInactive'
             });
