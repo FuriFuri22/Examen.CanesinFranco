@@ -12,7 +12,7 @@ const v_JWT = async(req, res, next)=>{
     };
 
     try {
-        const {uid}= await jwt.verify(token, process.env.SECRET);
+        const uid = await jwt.verify(token, process.env.SECRET);
 
         const userFind = await User.findById(uid);
 
@@ -21,7 +21,7 @@ const v_JWT = async(req, res, next)=>{
                 error: '2 El usuario no esta'
             })
         }
-        if (!usuario.isActive) {
+        if (!userFind.isActive) {
             return res.status(401).json({
                 msg: '3 Usuario isInactive'
             });
