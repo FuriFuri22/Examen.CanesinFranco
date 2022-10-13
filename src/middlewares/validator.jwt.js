@@ -3,16 +3,16 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const v_JWT = async(req, res, next)=>{
-    let token = req.headers.authorization;
+    let token = req.headers.Authorization;
 
-    if(!token){
+    /*if(!token){
         return res.status(401).json({
-            msg: '1 Autenticacion fallida'
+            msg: 'Token invalido'
         })
-    };
+    };*/
 
     try {
-        const {uid}= await jwt.verify(token, 'eso');
+        const {uid}= await jwt.verify(token, process.env.SECRET);
 
         const userFind = await User.findById(uid);
 

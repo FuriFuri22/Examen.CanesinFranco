@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const generatorJWT = require('../helpers/generador.jwt');
 const ctrlUser = {};
 
 ctrlUser.postUser = async(req, res)=>{
@@ -13,13 +14,30 @@ ctrlUser.postUser = async(req, res)=>{
         password: newPassword,
         email
     });
+    try {
+        const userSave = await newUser.save();
 
-    const user = await newUser.save();
-
-    return res.json({
-        msg: 'Bienvenido seas ',
-        user
+        const token = await generatorJWT({ uid: userSave._id })
+        return res.json({
+        msg: 'Bienvenido seas, ahora puede iniciar sesion usando su nombre de usuario, contraseña y el siguiente token ',
+        token
     })
+    
+    } catch (error) {
+        console.log(error)
+    }
+  
 };
+
+ctrlUser.getUser = (req, res)=>{
+  const uid = req.params._id;
+
+  const userFind = User.findById(uid);
+
+  return res.json({
+    msg: "Esta es su informacion de usuario",
+    userFind
+  })
+}
 
 module.exports = ctrlUser;
