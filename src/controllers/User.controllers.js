@@ -29,10 +29,10 @@ ctrlUser.postUser = async(req, res)=>{
   
 };
 
-ctrlUser.getUser = (req, res)=>{
-  const uid = req.params._id;
+ctrlUser.getUser =async  (req, res)=>{
+  const uid = req.user._id;
 
-  const userFind = User.findById(uid);
+  const userFind = await User.findById(uid);
 
   return res.json({
     msg: "Esta es su informacion de usuario",

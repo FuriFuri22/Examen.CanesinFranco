@@ -2,7 +2,7 @@ const {model, Schema}= require('mongoose');
 
 const TasksSchema = Schema({
     title: {
-        tyoe: String,
+        type: String,
         required: true
     },
     description: {

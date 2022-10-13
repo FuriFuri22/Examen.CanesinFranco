@@ -17,6 +17,7 @@ app.use(express.json());
 
 app.use(require('./src/routes/User.routes'));
 app.use(require('./src/routes/Login.routes'));
+app.use(require('./src/routes/Task.routes'));
 
 
 app.listen(port, ()=>console.log(`Rick, estamos en curso por http://localhost:${port}`));

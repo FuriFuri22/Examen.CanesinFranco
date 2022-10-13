@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const v_JWT = async(req, res, next)=>{
-    let token = req.headers.Authorization;
+    let token = req.headers.authorization;
 
-    /*if(!token){
+    if(!token){
         return res.status(401).json({
             msg: 'Token invalido'
         })
-    };*/
+    };
 
     try {
         const {uid}= await jwt.verify(token, process.env.SECRET);
@@ -21,7 +21,7 @@ const v_JWT = async(req, res, next)=>{
                 error: '2 El usuario no esta'
             })
         }
-        if (!usuario.isActive) {
+        if (!userFind.isActive) {
             return res.status(401).json({
                 msg: '3 Usuario isInactive'
             });

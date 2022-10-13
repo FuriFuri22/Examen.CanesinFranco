@@ -1,22 +1,22 @@
-const Tasks = require('../models/Tasks');
+const Tasks = require('../models/Task');
 ctrlTask = {};
 
 
 ctrlTask.postTask = async (req, res) => {
     const { title, description } = req.body;
 
-    const task = new Tasks({
+    const newtask = new Tasks({
         title,
         description,
         userId: req.user._id
     });
 
-        const newTask = await task.save();
+        const Task = await newtask.save();
 
       try {
         return res.json({
             msg: 'Creaste una tarea',
-            newTask
+            Task
         })
       } catch (err) {
         console.log(err)
@@ -31,6 +31,7 @@ ctrlTask.getTask = async (req, res) => {
     .populate('userId', ['username','email'])
     return res.json(tasks);
 }
+
 
 
 module.exports = ctrlTask;
