@@ -17,7 +17,7 @@ ctrlUser.postUser = async(req, res)=>{
     try {
         const userSave = await newUser.save();
 
-        const token = await generatorJWT({ uid: userSave._id })
+        const token = await generatorJWT(userSave._id )
         return res.json({
         msg: 'Bienvenido seas, ahora puede iniciar sesion usando su nombre de usuario, contraseña y el siguiente token ',
         token

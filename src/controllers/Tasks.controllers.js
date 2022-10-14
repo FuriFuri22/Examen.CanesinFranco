@@ -1,14 +1,15 @@
 const { find, findById, findByIdAndUpdate } = require('../models/Task');
 const Tasks = require('../models/Task');
+const User = require('../models/User');
 ctrlTask = {};
 
 
 ctrlTask.postTask = async (req, res) => {
 const idUser =  req.user._id;
-
-if(!idUser){
+const userfind = await User.findById(idUser)
+if(!userfind){
     return res.json({
-        msg: "No esta autorizado a modificar esta tarea"
+        msg: "No puede crear tareas"
     })
 }
 
@@ -48,7 +49,7 @@ ctrlTask.putTask = async(req, res)=>{
     const { title, description, state } = req.body;
     
     const taskFind = await Tasks.findById(taskId);
-    if(!userId || userId != taskFind.userId){
+    if(userId.toString() !== taskFind.userId.toString()){
         return res.json({
             msg: "No esta autorizado a modificar esta tarea"
         })
@@ -75,7 +76,11 @@ ctrlTask.deleteTask = async(req, res)=>{
     const taskId = req.params.id;
     const taskFind = await Tasks.findById(taskId);
      
-
+   if(userId.toString() !== taskFind.userId.toString()){
+    return res.json({
+        msg: 'No esta autorizado a eliminar esta tarea'
+    })
+   }
     if(!taskFind|| taskFind.isActive==false){
         return res.json({
             msg: "Tarea no encontrada"
