@@ -40,4 +40,40 @@ ctrlUser.getUser =async  (req, res)=>{
   })
 }
 
+ctrlUser.putUser = async (req, res)=>{
+  const uid = req.user._id;
+
+  const userFind = await User.findById(uid);
+
+  const {password:receivedPassword, userName, email} = req.body;
+  
+  const newPassword = bcrypt.hashSync(receivedPassword, 10);
+
+  try {
+    await User.updateOne({userName, password: newPassword, email})
+    return res.json({
+      msg: "datos actualizados"
+    })
+  } catch (error) {
+    return res.json({
+      error
+    })
+  }
+
+}
+
+ctrlUser.deleteUser = async(req, res)=>{
+  const uid = req.user._id;
+
+  try {
+    await User.updateOne({_id: uid}, {isActive: false})
+    return res.json({
+      msg: "Adios y gracias por haber utilizado nuestros servicios"
+    })
+  } catch (error) {
+    return res.json({
+     error
+    })
+  }
+}
 module.exports = ctrlUser;

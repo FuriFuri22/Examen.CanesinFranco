@@ -74,12 +74,7 @@ ctrlTask.deleteTask = async(req, res)=>{
     const userId = await req.user._id;
     const taskId = req.params.id;
     const taskFind = await Tasks.findById(taskId);
-
-    if(!userId || userId != taskFind.userId){
-        return res.json({
-            msg: "No esta autorizado a modificar esta tarea"
-        })
-    }
+     
 
     if(!taskFind|| taskFind.isActive==false){
         return res.json({
@@ -87,7 +82,7 @@ ctrlTask.deleteTask = async(req, res)=>{
         })
     }
 try {
-     Tasks.updateOne(taskFind.isActive = false)
+    await Tasks.updateOne({_id:taskId},{isActive:false})
      return res.json({
         msg: "Tarea eliminada"
      })

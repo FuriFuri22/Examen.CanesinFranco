@@ -33,7 +33,7 @@ ctrlAuth.login = async(req, res)=>{
         });
        }
 
-       const token = await generatorJWT({ uid: userFind._id })
+       const token = await generatorJWT( userFind._id)
 
        return res.json({ token });
     }catch(err){

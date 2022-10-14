@@ -4,18 +4,17 @@ const User = require('../models/User');
 
 const v_JWT = async(req, res, next)=>{
     let token = req.headers.authorization;
-    console.log(token)
     if(!token){
         return res.status(401).json({
             msg: 'Token invalido'
         })
-    };
+    }
 
     try {
-        const uid = await jwt.verify(token, process.env.SECRET);
+        const {uid} = await jwt.verify(token, process.env.SECRET);
 
         const userFind = await User.findById(uid);
-
+         console.log(userFind)
         if(!userFind){
             return res.status(401).json({
                 error: '2 El usuario no esta'
